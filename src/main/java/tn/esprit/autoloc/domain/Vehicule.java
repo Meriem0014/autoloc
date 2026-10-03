@@ -1,15 +1,14 @@
 package tn.esprit.autoloc.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,6 +23,13 @@ public class Vehicule {
     CategorieVehicule categorie;
     BigDecimal tarifJournalier;
     StatutVehicule status;
+    @ManyToMany(fetch=FetchType.EAGER)
+    List<Equipement>  equipements = new ArrayList<>();
+    @ManyToOne
+    private Agence agence;
+    @OneToMany(mappedBy = "vehicule")
+    private List<Maintenance> maintenances = new ArrayList<>();
+
 
 }
 // - cest private

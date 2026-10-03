@@ -1,15 +1,15 @@
 package tn.esprit.autoloc.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -21,4 +21,6 @@ public class Client {
     Long idClient;
     String nom,prenom,telephone, email , numPermis;
     LocalDate dateInscription;
+    @OneToMany(mappedBy = "client")
+    List<Reservation> reservations = new ArrayList<>();
 }
