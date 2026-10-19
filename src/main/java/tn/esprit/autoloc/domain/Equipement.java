@@ -18,7 +18,7 @@ import java.util.List;
 public class Equipement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idEqupement;
+    Long idEqupement;
     String libelle;
     @ManyToMany(mappedBy = "equipements")
     List<Vehicule> vehicules = new ArrayList<>();

@@ -18,7 +18,7 @@ import java.util.List;
 public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idVehicule;
+    Long idVehicule;
     String immatricule,marque,modele;
     CategorieVehicule categorie;
     BigDecimal tarifJournalier;

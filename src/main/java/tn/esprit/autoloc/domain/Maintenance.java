@@ -15,7 +15,7 @@ import java.time.LocalDate;
 public class Maintenance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long idMaintenance;
+    Long idMaintenance;
     LocalDate dateDebut;
     LocalDate datefin;
     String description;
