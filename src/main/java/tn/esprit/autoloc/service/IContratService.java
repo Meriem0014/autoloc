@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IContratService {
     Contrat ajouterContrat(Contrat contrat);
-    Contrat modifierContrat(Contrat contract);
+    Contrat modifierContrat(Contrat contrat);
     List<Contrat> afficherContrat();
     Contrat afficherContratById(Long id );
     void supprimerContrat(Long id);

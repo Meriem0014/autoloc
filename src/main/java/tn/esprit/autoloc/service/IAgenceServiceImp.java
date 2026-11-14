@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.repository.AgenceRepository;
+import tn.esprit.autoloc.repository.VehiculeRepository;
 
 import java.util.List;
 @Service
@@ -12,6 +13,7 @@ import java.util.List;
 public class IAgenceServiceImp implements IAgenceService{
     //injection du bean par constructeur
     private final AgenceRepository agenceRepository; //SO WE COULD USE LES METHODES OFFERTES
+    private final VehiculeRepository vehiculeRepository;
 
     @Override
     public Agence ajouterAgence(Agence agence) {
@@ -37,4 +39,19 @@ public class IAgenceServiceImp implements IAgenceService{
         agenceRepository.deleteById(id);
 
     }
+
+    @Override
+    public Agence ajouterAgenceEtAffecterVehicules(Agence agence) {
+        Agence agenceSaved = agenceRepository.save(agence);
+
+        agenceSaved.getVehicules().forEach(vehicule -> {
+            vehicule.setAgence(agenceSaved);
+        });
+
+        vehiculeRepository.saveAll(agenceSaved.getVehicules());
+
+
+        return agenceSaved;
+    }
+
 }
