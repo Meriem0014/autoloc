@@ -2,6 +2,7 @@ package tn.esprit.autoloc.service;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.domain.Equipement;
 import tn.esprit.autoloc.repository.EquipementRepo;
@@ -9,6 +10,7 @@ import tn.esprit.autoloc.repository.PaiementRepo;
 import tn.esprit.autoloc.repository.VehiculeRepository;
 import tn.esprit.autoloc.domain.Vehicule;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -62,4 +64,31 @@ public class IVehiculeServiceImp implements IVehiculeService {
 
         return vehiculeRepository.save(vehicule);
     }
+
+    @Scheduled(fixedRate = 60000, initialDelay = 5000)
+    @Override
+    public void actualiserEtatVehicule() {
+        List<Vehicule> vehicules = vehiculeRepository.findAll();
+        System.out.println("===== ACTUALISATION DES VEHICULES =====");
+        System.out.println("somme vehicule : " +vehicules.size() );
+        System.out.println("DATE D'actualisation" + LocalDateTime.now());
+        System.out.println("=======================================");
+
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 22 * * thu")
+    public void genererRapportVehicules() {
+        List<Vehicule> vehicules = vehiculeRepository.findAll();
+        System.out.println("========== RAPPORT VEHICULES ==========");
+
+        System.out.println("Nombre total de véhicules : "
+                + vehicules.size());
+
+        System.out.println("Date de génération : " + LocalDateTime.now());
+
+        System.out.println("=======================================");
+    }
+
+
 }

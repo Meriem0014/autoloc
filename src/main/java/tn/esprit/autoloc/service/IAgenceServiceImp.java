@@ -1,11 +1,13 @@
 package tn.esprit.autoloc.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.autoloc.domain.Agence;
 import tn.esprit.autoloc.repository.AgenceRepository;
 import tn.esprit.autoloc.repository.VehiculeRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @Service
 @AllArgsConstructor
@@ -53,5 +55,17 @@ public class IAgenceServiceImp implements IAgenceService{
 
         return agenceSaved;
     }
+
+    @Override
+    @Scheduled(fixedDelay = 120000)
+    public void suivreNombreAgences() {
+        List<Agence> agences = agenceRepository.findAll();
+        System.out.println("===== SUIVI DES AGENCES =====");
+        System.out.println("Nombre total d'agences : "
+                + agences.size());
+        System.out.println("Date et heure : " + LocalDateTime.now());
+        System.out.println("=============================");
+    }
+
 
 }
